@@ -1,0 +1,11 @@
+This is a C++ STL-compatible (I hope) random access iterator.  It wraps a 
+pointer and allows you to specify a step value.  Reads from the iterator will
+then skip the given number of pointer positions.
+
+My use case is for representing multidimensional matrices as a single linear 
+array of values.  I use it to make a wrapper for Matlab mxArray objects for mex
+file programming.
+
+I don't have much experience with C++ or STL, so I'm sure there are 
+implementation issues with the current draft.  Feel free to report problems to
+me or send pull requests.
