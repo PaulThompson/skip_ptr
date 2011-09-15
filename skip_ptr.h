@@ -1,8 +1,7 @@
-/* mw_array_container.h
- * Bring in some STL container functionality for mwArray.
- * Derived from: http://jeffmatherphotography.com/dispatches/2008/08/using-c-iterators-on-matlab-mxarrays/
- * With much guidance from: http://accu.org/index.php/journals/389
- * Ver 0.2
+/* skip_ptr.h
+ * C++ STL random_access_iterator that wraps pointer and allows skipping
+ * Developed with much guidance from: http://accu.org/index.php/journals/389
+ * Ver 0.3
  * Peter H. Li 2011 FreeBSD License
  */
 

@@ -9,3 +9,6 @@ file programming.
 I don't have much experience with C++ or STL, so I'm sure there are 
 implementation issues with the current draft.  Feel free to report problems to
 me or send pull requests.
+
+I tried to develop this based almost entirely on this tutorial:
+  http://accu.org/index.php/journals/389
