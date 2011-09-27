@@ -1,7 +1,7 @@
 /* skip_ptr.h
  * C++ STL random_access_iterator that wraps pointer and allows skipping
  * Developed with much guidance from: http://accu.org/index.php/journals/389
- * Ver 0.3
+ * Ver 0.4
  * Peter H. Li 2011 FreeBSD License
  */
 
@@ -17,7 +17,7 @@ template <class T, typename elem_type = T>
 class skip_ptr
 {
 public:
-  typedef skip_ptr<T> self_type;
+  typedef skip_ptr<T,elem_type> self_type;
   
   // STL requirements
   typedef std::random_access_iterator_tag iterator_category;
@@ -33,37 +33,32 @@ public:
   
   
   // Core functionality
-  T &operator*()  { return *_p; }
-  T *operator->() { return &(operator*()); }
+  T &operator*()  const { return *_p; }
+  T *operator->() const { return &(operator*()); }
 
-  bool operator==(const self_type &other) const 
-    { return _p == other._p && _step == other._step; }  
-  bool operator<(const self_type &other) const { return _p < other._p; }
+  bool operator==(const self_type &other) const { return _p == other._p && _step == other._step; }  
+  bool operator<(const  self_type &other) const { return _p < other._p; }
   
-  self_type operator+(difference_type n) const {
+  self_type operator+(const difference_type n) const {
     return skip_ptr(_p + n*_step, _step);
   };
   
-  self_type &operator+=(difference_type n) {
+  self_type &operator+=(const difference_type n) {
     _p += n*_step;
     return *this;
   }
   
-  difference_type operator-(self_type &other) const {
-    return (_p - other._p) / _step;
-  }
+  difference_type operator-(const self_type &other) const { return (_p - other._p) / _step; }
 
   
   // Implemented based on core functionality
   bool operator!=(const self_type &other) const { return !(*this == other); }
-  bool operator<=(const self_type &other) const 
-    { return *this < other || *this == other;  }
-  bool operator>(const self_type &other) const { return !(*this <= other); }
-  bool operator>=(const self_type &other) const 
-    { return *this > other || *this = other; }
+  bool operator<=(const self_type &other) const { return *this < other || *this == other;  }
+  bool operator>(const  self_type &other) const { return !(*this <= other); }
+  bool operator>=(const self_type &other) const { return *this > other || *this = other; }
 
-  self_type operator-(difference_type n) { return *this + (-n); }
-  self_type &operator-=(difference_type n) { return *this += (-n); }
+  self_type operator-(const difference_type n) const { return *this + (-n); }
+  self_type &operator-=(const difference_type n) { return *this += (-n); }
   self_type &operator++() { return *this +=  1; }
   self_type &operator--() { return *this += -1; }
   
@@ -77,6 +72,10 @@ public:
     self_type tmp(*this);
     --(*this);
     return tmp;
+  }
+  
+  pointer get() const {
+    return _p;
   }
   
 private:
